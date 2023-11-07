@@ -14,7 +14,7 @@ class TreeNode:
             s += printnode(node.right, depth+1)
             return s
 
-        return printnode(self, 0)
+        return "\n"+printnode(self, 0)
 
 from collections import deque
 
@@ -67,10 +67,10 @@ if __name__ == '__main__':
         array = make_bfs_list_from_bst(tree)
         print("Bfs from tree = ", array)
 
-print()
-testcase = [2, 3, 4, None, 5, None, None, 6, 7]
-print(testcase)
-print(make_tree_from_bfs_list(testcase))
+    print()
+    testcase = [2, 3, 4, None, 5, None, None, 6, 7]
+    print(testcase)
+    print(make_tree_from_bfs_list(testcase))
         
             
             
