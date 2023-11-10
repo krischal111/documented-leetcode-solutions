@@ -5,40 +5,47 @@ impl Solution {
         let mut board = vec![vec![true;n];n];
         // queen_marker(&mut board, 3);
         // dbg!(board);
-        let my_boards = board_queen(&board, n);
-        return vec![];
+        let my_boards = board_queen(&board, n, n);
+        return my_boards;
     }
 }
 
-fn board_queen(board:&[Vec<bool>], n:usize) {
+fn board_queen(board:&[Vec<bool>], n:usize, m: usize) -> Vec<Vec<String>> {
     if n == 0 {
-        dbg!(0);
-        return;
+        // dbg!(0);
+        return vec![Vec::with_capacity(n)];
     }
 
     let this_line = board.first().unwrap();
-    let m = this_line.len();
 
+    let mut my_boards = vec![];
     for i in 0..m {
         if this_line[i] == false {
             continue;
         }
+        let mut my_line = vec![b'.';m];
+        my_line[i] = b'Q';
+        let my_line = unsafe {String::from_utf8_unchecked(my_line)};
+
         let mut new_board = board.to_vec();
-        queen_marker(&mut new_board, i);
-        let my_boards = board_queen(&new_board[1..], n-1);
+        queen_marker(&mut new_board, i, m);
+        let mut bottom_boards = board_queen(&new_board[1..], n-1, m);
+
+        for mut each_board in bottom_boards {
+            each_board.insert(0, my_line.clone());
+            my_boards.push(each_board);
+        }
+
         // dbg!(new_board);
     }
-    
-
+    return my_boards;
 }
-fn queen_marker(board: &mut [Vec<bool>], x:usize) {
+fn queen_marker(board: &mut [Vec<bool>], x:usize, m: usize) {
     if board.len() == 0 {
         return;
     }
     // vertical and diagonals
     let l = board.len();
-    let m = board.first().unwrap().len();
-    // dbg!(m);
     for i in 1..l {
         board[i][x] = false;
         let left = (x as isize - i as isize);
@@ -54,7 +61,7 @@ fn queen_marker(board: &mut [Vec<bool>], x:usize) {
 
 
 fn main() {
-    Solution::solve_n_queens(4);
+    dbg!(Solution::solve_n_queens(5));
 
 }
 struct Solution;
