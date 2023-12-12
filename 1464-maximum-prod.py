@@ -3,6 +3,7 @@
 #         a, b = sorted(nums)[-2:]
 #         print(a,b)
 #         return (a-1)*(b-1)
+
 class Solution:
     def maxProduct(self, nums: list[int]) -> int:
         a, b = nums[:2]
