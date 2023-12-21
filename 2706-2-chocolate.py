@@ -1,5 +1,5 @@
 class Solution:
-    def buyChoco(self, prices: List[int], money: int) -> int:
+    def buyChoco(self, prices: list[int], money: int) -> int:
         price_lowest, price_lower = sorted(prices[:2])
 
         # we need the two smallest prices
